@@ -1,12 +1,39 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://rawgit.com/andrearufo/monospaced.css/0.0.1/dist/monospaced.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+
+    <style media="screen">
+        header{
+            text-align: center;
+            padding-top: 4rem;
+        }
+
+        header > .title{
+            font-size: 140%;
+        }
+
+        .card{
+            display: block;
+            margin-bottom: 1rem;
+            color: inherit;
+            border: 0.1rem solid #e1e1e1;
+            padding: 1rem;
+            border-radius: .4rem;
+        }
+
+        footer{
+            text-align: center;
+            font-size: 80%;
+            padding-bottom: 4rem;
+        }
+    </style>
 
     <title><?php echo $site->title ?></title>
 
@@ -18,39 +45,37 @@
 
     <div class="container">
 
-        <div class="row justify-content-center py-5">
-            <div class="col-lg-8">
-
-                <div>
-                    <a href="<?php echo $site->url ?>"><?php echo $site->title ?></a>, <?php echo $site->description ?></p>
-                </div>
-
-                <hr>
-
-                <div class="my-5">
-                    <?php if( $site->isSingle() ) : ?>
-
-                        <?php echo $site->current->content ?>
-
-                    <?php else : ?>
-
-                        <ul>
-                            <?php foreach ($site->articles as $article): ?>
-                                <li>
-                                    <a href="<?php echo $article->permalink ?>"><?php echo $article->title ?></a>, <?php echo $article->modified ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-
-                    <?php endif; ?>
-                </div>
-
-                <hr>
-
-                <small><?php echo $site->footer ?></small>
-
+        <header>
+            <div class="title">
+                <a href="<?php echo $site->url ?>">
+                    <?php echo $site->title ?>
+                </a>
             </div>
-        </div>
+
+            <p><?php echo $site->description ?></p>
+        </header>
+
+        <hr>
+
+        <?php if( $site->isSingle() ) : ?>
+
+            <?php echo $site->current->content ?>
+
+        <?php else : ?>
+
+            <?php foreach ($site->articles as $article): ?>
+                <a class="card" href="<?php echo $article->permalink ?>">
+                    <?php echo $article->title ?>
+                    <br>
+                    <small><?php echo $article->modified ?></small>
+                </a>
+            <?php endforeach; ?>
+
+        <?php endif; ?>
+
+        <hr>
+
+        <footer><?php echo $site->footer ?></footer>
 
     </div>
 
